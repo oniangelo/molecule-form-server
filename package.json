@@ -1,0 +1,17 @@
+{
+  "name": "nico-web",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "oniangelo",
+  "license": "MIT",
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "jsme-editor": "^2022.9.26"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  }
+}
