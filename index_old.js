@@ -1,8 +1,6 @@
 const express = require('express');
 const path = require('path');
 var cors = require('cors');
-const { stdout, stderr } = require('process');
-const { threadId } = require('worker_threads');
 const port = process.env.PORT || 3000;
 
 const app = express();
@@ -30,22 +28,19 @@ app.get('/',(req, res) => {
   });
   app.post('/analize-data',(req, res) => {
 
-    const { execFile } = require('child_process');
-    const script  = execFile('python3', ['-u','/home/gambacorta/Scrivania/Nico/progetto/Novembre_2022/predizione.py',
-  'models_sequence','arg1','arg2'],(error,stdout,stderr)=> {
-    if (error) {
-      console.error(`error: ${error}`);
-    }
+    const { spawn } = require('child_process');
+   
+    const pyProg = spawn('python3', ['./predizione.py',3,6]);
     var result = 0;
-    script.stdout.on('data', (data) => {
+    pyProg.stdout.on('data', (data) => {
         result = data;
         console.log(`stdout: ${data}`);
-        console.error(`stderr: ${stderr}`)
         var molecule = req.body;
         res.json({risultato :molecule.molecule.toString()});
-    })
-        //res.sendFile(path.join(__dirname, '/frontend.html'));
+      });
+    
+    //res.sendFile(path.join(__dirname, '/frontend.html'));
   });
 
 
-  app.listen(port, () => console.log(`Nico app listening on port ${port}!`))});
+  app.listen(port, () => console.log(`Nico app listening on port ${port}!`));
