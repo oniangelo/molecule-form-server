@@ -37,15 +37,8 @@ app.get('/',(req, res) => {
     if (error) {
       console.error(`error: ${error}`);
     }
-    var result = 0;
-    script.stdout.on('data', (data) => {
-        result = data;
-        console.log(`stdout: ${data}`);
-        console.error(`stderr: ${stderr}`)
-        var molecule1 = req.body;
-        res.json({risultato :molecule1.molecule.toString()});
-    })
-        //res.sendFile(path.join(__dirname, '/frontend.html'));
+      //put your outuput logic here
+    });
   });
 
 
