@@ -31,8 +31,9 @@ app.get('/',(req, res) => {
   app.post('/analize-data',(req, res) => {
 
     const { execFile } = require('child_process');
+    var molecule = req.body;
     const script  = execFile('python3', ['-u','/home/gambacorta/Scrivania/Nico/progetto/Novembre_2022/predizione.py',
-  'models_sequence','arg1','arg2'],(error,stdout,stderr)=> {
+  'models_sequence',molecule.molecule.toString(),'arg2'],(error,stdout,stderr)=> {
     if (error) {
       console.error(`error: ${error}`);
     }
@@ -41,8 +42,8 @@ app.get('/',(req, res) => {
         result = data;
         console.log(`stdout: ${data}`);
         console.error(`stderr: ${stderr}`)
-        var molecule = req.body;
-        res.json({risultato :molecule.molecule.toString()});
+        var molecule1 = req.body;
+        res.json({risultato :molecule1.molecule.toString()});
     })
         //res.sendFile(path.join(__dirname, '/frontend.html'));
   });
