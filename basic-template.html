@@ -1,0 +1,22 @@
+<hr />
+<p style="text-align: center;"><strong>Prediction</strong> for {{smiles}}</p>
+<hr />
+<p style="text-align: left;"> Prediction baby:</p>
+<p style="text-align: left;">The prediction has the following items:</p>
+<ol>
+<li style="text-align: left;">Cannabinoid System vs ChEMBL: Prediction Probability <strong>{{p_chembl}}</strong></li>
+<li style="text-align: left;">Cannabinoid System vs GPCRs: Prediction Probability <strong>{{p_GPCR}}</strong></li>
+<li style="text-align: left;">Cannabinoid System Single-Target (ST) vs Multi-Target (MT): Prediction <strong>{{p_STvsMT}}</strong></li>
+<li style="text-align: left;">Cannabinoid Receptor 1 (CB1) vs Cannabinoid Receptor 2 (CB2): Prediction <strong>{{p_CB1vsCB2}}</strong></li>
+</ol>
+<p style="text-align:left;"> List of most similar compounds with Tanimoto Coeff: </p>
+{% for s in similars %}
+<div class="tani">
+	<img src='{{s["fig"]}}'>
+	<p>Tanimoto Similarity: {{'%0.2f'|format(s["tani"])}}</p>
+	<p>Info: {{s["info"]["value"]}} {{s["info"]["type"]}} 
+</div>
+{% endfor %}
+<h3>shaps</h3>
+<img src="{{shapname}}">
+

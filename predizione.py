@@ -58,7 +58,7 @@ def mol_to_svg(mol, svgname):
     with open(svgname, "w") as f:
         f.write(drawer.GetDrawingText())
 
-Template_loader = jinja2.FileSystemLoader('templates/')
+Template_loader = jinja2.FileSystemLoader('/')
 Template_env = jinja2.Environment(loader=Template_loader)
 pred_template = Template_env.get_template('basic-template.html')
 
@@ -99,7 +99,7 @@ def models_sequence(smiles,CSFP):
                 return res,output_text
         else:
             output_text = pred_template.render(smiles=smiles, p_chembl=p_chembl[0],
-                    p_GPCR=p_GPCR,
+                    p_GPCR=p_GPCR)
             return res, output_text
     else:
         output_text= pred_template.render(smiles=smiles, p_chembl=p_chembl[0])

@@ -32,14 +32,21 @@ app.get('/',(req, res) => {
 
     const { execFile } = require('child_process');
     var molecule = req.body;
-    const script  = execFile('python3', ['-u','/home/gambacorta/Scrivania/Nico/progetto/Novembre_2022/predizione.py',
+    const script  = execFile('python3', ['-u','/home/gambacorta/Scrivania/Nico/website/molecule-form-server/predizione.py',
   'models_sequence',molecule.molecule.toString(),'arg2'],(error,stdout,stderr)=> {
     if (error) {
       console.error(`error: ${error}`);
     }
-      //put your outuput logic here
+    var result = 0;
+    script.stdout.on('data', (data) => {
+        result = data;
+        console.log(`stdout: ${data}`);
+        console.error(`stderr: ${stderr}`)
+        var molecule1 = req.body;
+        res.json({risultato :molecule1.molecule.toString()});
     });
-  });
+        //res.sendFile(path.join(__dirname, '/frontend.html'));
+  })});
 
 
-  app.listen(port, () => console.log(`Nico app listening on port ${port}!`))});
+  app.listen(port, () => console.log(`Nico app listening on port ${port}!`));
