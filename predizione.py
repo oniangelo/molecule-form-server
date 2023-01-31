@@ -1,4 +1,4 @@
-from classifiers import ChEMBL_load,CSFP_1_load,GPCRs_load,CSFP_2_load,STvsMT_load,CSFP_3_load,CB1vsCB2_load,CSFP_red_load,CSFP_4_load, explainer_red_load, DB_dict
+from classifiers import CSFP_load, ChEMBL_load,CSFP_1_load,GPCRs_load,CSFP_2_load,STvsMT_load,CSFP_3_load,CB1vsCB2_load,CSFP_red_load,CSFP_4_load, explainer_red_load, DB_dict
 import classifiers as C
 import numpy as np
 from grafica import GraficoSHAP
@@ -58,11 +58,12 @@ def mol_to_svg(mol, svgname):
     with open(svgname, "w") as f:
         f.write(drawer.GetDrawingText())
 
-Template_loader = jinja2.FileSystemLoader('/')
+Template_loader = jinja2.FileSystemLoader('/home/gambacorta/Scrivania/Nico/website/molecule-form-server/')
 Template_env = jinja2.Environment(loader=Template_loader)
 pred_template = Template_env.get_template('basic-template.html')
 
-def models_sequence(smiles,CSFP):
+def models_sequence(smiles):
+    CSFP = CSFP_load
     res=dict(smiles=smiles)
     p_chembl=pred_ChEMBL(smiles)
     res["pred_chembl"]=p_chembl
@@ -105,5 +106,8 @@ def models_sequence(smiles,CSFP):
         output_text= pred_template.render(smiles=smiles, p_chembl=p_chembl[0])
         return res, output_text
 
+
+def models_sequence1(smiles):
+    return smiles;
 
 

@@ -3,7 +3,7 @@ const path = require('path');
 var cors = require('cors');
 const { stdout, stderr } = require('process');
 const { threadId } = require('worker_threads');
-const port = process.env.PORT || 3000;
+//const port = process.env.PORT || 3000;
 
 const app = express();
 app.use(cors());
@@ -30,23 +30,20 @@ app.get('/',(req, res) => {
   });
   app.post('/analize-data',(req, res) => {
 
-    const { execFile } = require('child_process');
-    var molecule = req.body;
-    const script  = execFile('python3', ['-u','/home/gambacorta/Scrivania/Nico/website/molecule-form-server/predizione.py',
-  'models_sequence',molecule.molecule.toString(),'arg2'],(error,stdout,stderr)=> {
+    const { execFile, spawn } = require('child_process');
+    var molecule = req.body.molecule.toString();
+    const script  = execFile('/home/gambacorta/anaconda3/envs/ML/bin/python3', ['/home/gambacorta/Scrivania/Nico/website/molecule-form-server/run.py',molecule ],(error,stdout,stderr)=> {
     if (error) {
       console.error(`error: ${error}`);
+      //res.set(500, {'Content-type': 'text/html'});
+      //res.end(`execFile error : ${error}`);
     }
-    var result = 0;
-    script.stdout.on('data', (data) => {
-        result = data;
-        console.log(`stdout: ${data}`);
-        console.error(`stderr: ${stderr}`)
-        var molecule1 = req.body;
-        res.json({risultato :molecule1.molecule.toString()});
-    });
-        //res.sendFile(path.join(__dirname, '/frontend.html'));
-  })});
+    const html =`<pre>${stdout}</pre>`
+    res.setHeader('Content-type', 'text/html');
+    res.send(html);
+  //res.sendFile(path.join(__dirname + '/basic-template.html'));
+  })
+});
 
-
-  app.listen(port, () => console.log(`Nico app listening on port ${port}!`));
+const port = 3000;
+app.listen(port, () => console.log(`Nico app listening on port ${port}!`));

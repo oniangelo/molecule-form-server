@@ -12,6 +12,8 @@ smarts_red = pd.read_csv(DATI+'SMART_LIST_red.csv')
 CSFP = fingerprints.FragmentFingerprint(substructure_list=tiago_df.smarts.tolist())
 CSFP_red = fingerprints.FragmentFingerprint(substructure_list=smarts_red["smarts"])
 
+CSFP_file = DATI+'CSFP.sav'
+CSFP_load = pickle.load(open(CSFP_file,'rb'))
 ChEMBL = DATI+'ChEMBL_model.sav'
 ChEMBL_load = pickle.load(open(ChEMBL,'rb'))
 CSFP_file_1 = DATI+'CSFP_1.sav'
