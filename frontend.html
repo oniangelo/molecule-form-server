@@ -15,7 +15,7 @@
 </table>
 <div id="app">
 
-  <button @click="submit">Send to server</button>
+  <button @click="goToResult">Send to server</button>
   <button @click="readMolecule">readMolecule</button>
 </div>
 
@@ -52,7 +52,7 @@ function jsmeOnLoad() {
     methods:{
         submit(){
           var data = this.jsmeAppletVue.smiles();
-          console.log('client molecule: '+data);  
+          console.log('client molecule: '+data);            
           axios.post('/analize-data',{
             molecule: data
           }).then((response) => {
@@ -61,6 +61,11 @@ function jsmeOnLoad() {
           // axios.get("/get-func-res").then(function(response){
           //   console.log('risultato: '+response.data.risultato);
           // });            
+        },
+        goToResult(){
+          var data = this.jsmeAppletVue.smiles();
+          console.log('client molecule: '+data); 
+          window.location('/go-to-result?molecule='+data);
         },
         getSmiles() {
         var data = this.jsmeAppletVue.smiles();

@@ -45,5 +45,24 @@ app.get('/',(req, res) => {
   })
 });
 
+app.get('/go-to-result',(req,res) => {
+  const script  = execFile('/home/gambacorta/anaconda3/envs/ML/bin/python3', ['/home/gambacorta/Scrivania/Nico/website/molecule-form-server/run.py',molecule ],(error,stdout,stderr)=> {
+    if (error) {
+      console.error(`error: ${error}`);
+      //res.set(500, {'Content-type': 'text/html'});
+      //res.end(`execFile error : ${error}`);
+    }
+    const html =`${stdout}`;
+    res.setHeader('Content-type', 'text/html');
+    res.render(html);
+    // res.setHeader('Content-type', 'text/html');
+    // res.send(html);
+  //res.sendFile(path.join(__dirname + '/basic-template.html'));
+  })
+});
+
+
+
+
 const port = 3000;
 app.listen(port, () => console.log(`Nico app listening on port ${port}!`));

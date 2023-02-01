@@ -5,4 +5,4 @@ from predizione import models_sequence
 
 #print(sys.argv[1])
 out = models_sequence(sys.argv[1])
-print(out[0])
+print(out)
