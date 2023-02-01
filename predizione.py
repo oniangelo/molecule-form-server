@@ -1,4 +1,4 @@
-from classifiers import CSFP_load, ChEMBL_load,CSFP_1_load,GPCRs_load,CSFP_2_load,STvsMT_load,CSFP_3_load,CB1vsCB2_load,CSFP_red_load,CSFP_4_load, explainer_red_load, DB_dict
+from classifiers import CSFP, ChEMBL_load,CSFP_1_load,GPCRs_load,CSFP_2_load,STvsMT_load,CSFP_3_load,CB1vsCB2_load,CSFP_red_load,CSFP_4_load, explainer_red_load, DB_dict
 import classifiers as C
 import numpy as np
 from grafica import GraficoSHAP
@@ -63,7 +63,6 @@ Template_env = jinja2.Environment(loader=Template_loader)
 pred_template = Template_env.get_template('basic-template.html')
 
 def models_sequence(smiles):
-    CSFP = CSFP_load
     res=dict(smiles=smiles)
     p_chembl=pred_ChEMBL(smiles)
     res["pred_chembl"]=p_chembl
@@ -92,7 +91,7 @@ def models_sequence(smiles):
                         p_CB1vsCB2=res["pred_CB1vsCB2"]["pred"],
                         shapname=shapname,
                         similars=similars)
-                return res, similars, output_text
+                return res, output_text, similars
             else:
                 output_text = pred_template.render(smiles=smiles, p_chembl=p_chembl[0],
                         p_GPCR=p_GPCR[0],
@@ -105,9 +104,5 @@ def models_sequence(smiles):
     else:
         output_text= pred_template.render(smiles=smiles, p_chembl=p_chembl[0])
         return res, output_text
-
-
-def models_sequence1(smiles):
-    return smiles;
 
 

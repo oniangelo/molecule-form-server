@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.raw());
 app.use(express.static('jsme'));
-
+app.use('/pred_out', express.static('pred_out'));
 
 
 // app.get('/',(req, res) => {
@@ -46,6 +46,8 @@ app.get('/',(req, res) => {
 });
 
 app.get('/go-to-result',(req,res) => {
+  const { execFile, spawn } = require('child_process');
+  var molecule = req.query.molecule;
   const script  = execFile('/home/gambacorta/anaconda3/envs/ML/bin/python3', ['/home/gambacorta/Scrivania/Nico/website/molecule-form-server/run.py',molecule ],(error,stdout,stderr)=> {
     if (error) {
       console.error(`error: ${error}`);
@@ -54,7 +56,7 @@ app.get('/go-to-result',(req,res) => {
     }
     const html =`${stdout}`;
     res.setHeader('Content-type', 'text/html');
-    res.render(html);
+    res.send(html);
     // res.setHeader('Content-type', 'text/html');
     // res.send(html);
   //res.sendFile(path.join(__dirname + '/basic-template.html'));
