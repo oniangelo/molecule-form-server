@@ -1,5 +1,9 @@
 <img src="Loading_icon.gif" width="500" height="600">
-
+<h2>we're baking your prediction!</h2>
 <script type="text/javascript">
-     window.location.href=window.location.origin+'/go-to-result?molecule='+data;
+     debugger;
+     let searchParams = new URLSearchParams(window.location.search)
+     var molecule = searchParams.get('molecule');
+     console.log(molecule);
+     window.location.href=window.location.origin+'/go-to-result?molecule='+molecule;
 </script>

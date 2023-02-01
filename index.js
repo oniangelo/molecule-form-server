@@ -11,6 +11,7 @@ app.use(express.json());
 app.use(express.raw());
 app.use(express.static('jsme'));
 app.use('/pred_out', express.static('pred_out'));
+app.use(express.static('assets'));
 
 
 // app.get('/',(req, res) => {
@@ -63,6 +64,10 @@ app.get('/go-to-result',(req,res) => {
   })
 });
 
+app.get('/send-job',(req,res)=> {
+  var molecule = req.query.molecule;
+  res.sendFile(path.join(__dirname, '/pre-process.html'));
+})
 
 
 

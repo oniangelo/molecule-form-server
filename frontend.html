@@ -15,7 +15,7 @@
 </table>
 <div id="app">
 
-  <button @click="goToResult" class="btn btn-primary">Send to server</button>
+  <button @click="sendJob" class="btn btn-primary">Send to server</button>
   <!-- <button @click="readMolecule">readMolecule</button> -->
 </div>
 
@@ -63,10 +63,14 @@ function jsmeOnLoad() {
           //   console.log('risultato: '+response.data.risultato);
           // });            
         },
-        goToResult(){
-          var data = this.jsmeAppletVue.smiles();
-          console.log('client molecule: '+data); 
-          window.location.href=window.location.origin+'/go-to-result?molecule='+data;
+        // goToResult(){
+        //   var data = this.jsmeAppletVue.smiles();
+        //   console.log('client molecule: '+data); 
+        //   window.location.href=window.location.origin+'/go-to-result?molecule='+data;
+        // },
+        sendJob(){
+          var smileMolecule = this.jsmeAppletVue.smiles();
+          window.location.href=window.location.origin+'/send-job?molecule='+smileMolecule;
         },
         getSmiles() {
         var data = this.jsmeAppletVue.smiles();
